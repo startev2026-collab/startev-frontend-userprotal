@@ -51,9 +51,9 @@ export default function Layout() {
 
         <div className="navbar-actions" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-md)' }}>
           {/* Helpline */}
-          <a href="tel:+919059736069" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-xs)', color: 'var(--primary)', textDecoration: 'none', fontWeight: 600, fontSize: 'var(--font-size-sm)' }}>
+          <a href="tel:+917671861942" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-xs)', color: 'var(--primary)', textDecoration: 'none', fontWeight: 600, fontSize: 'var(--font-size-sm)' }}>
             <HiOutlinePhone size={18} />
-            <span className="hide-mobile">+91 9059736069</span>
+            <span className="hide-mobile">+91 7671861942</span>
           </a>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-sm)' }} className="hide-mobile">

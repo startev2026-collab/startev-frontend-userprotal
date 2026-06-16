@@ -42,7 +42,7 @@ export default function DepositPayment() {
     }
 
     try {
-      // Create Razorpay order
+      // Create Cashfree order
       const initRes = await api.post('/payments/create-order', {
         amount: amountToPay,
         currency: 'INR',
@@ -50,45 +50,43 @@ export default function DepositPayment() {
         payment_type: 'deposit'
       });
 
-      const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-        amount: initRes.data.amount,
-        currency: initRes.data.currency,
-        name: 'EV Bike Rental',
-        description: `Security Deposit — ₹${amountToPay.toLocaleString('en-IN')}`,
-        order_id: initRes.data.order_id,
-        handler: async function (response) {
-          try {
-            // Verify payment
-            await api.post('/payments/verify-payment', {
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_signature: response.razorpay_signature,
-            });
+      if (!window.Cashfree) {
+        toast.error('Payment gateway SDK not loaded');
+        setPaying(false);
+        return;
+      }
 
-            // Record deposit
-            await api.post('/deposits/pay', {
-              amount: amountToPay,
-              transaction_id: response.razorpay_payment_id,
-            });
-
-            toast.success('🎉 Deposit paid successfully! You can now rent bikes.');
-            fetchDepositData();
-          } catch (err) {
-            toast.error(err.response?.data?.error || 'Deposit recording failed');
-          }
-        },
-        theme: { color: '#6366f1' },
-      };
-
-      const rzp = new window.Razorpay(options);
-      rzp.on('payment.failed', function (response) {
-        toast.error(response.error.description || 'Payment failed');
+      const cashfree = window.Cashfree({
+        mode: import.meta.env.VITE_CASHFREE_ENV || 'sandbox'
       });
-      rzp.on('payment.modal.closed', function () {
-        toast.error('Payment cancelled');
+
+      cashfree.checkout({
+        paymentSessionId: initRes.data.payment_session_id,
+        redirectTarget: '_modal'
+      }).then(async (result) => {
+        if (result.error) {
+          toast.error(result.error.message || 'Payment failed or cancelled');
+          return;
+        }
+
+        try {
+          // Verify payment
+          const verifyRes = await api.post('/payments/verify-payment', {
+            order_id: initRes.data.order_id
+          });
+
+          // Record deposit
+          await api.post('/deposits/pay', {
+            amount: amountToPay,
+            transaction_id: verifyRes.data.transaction_id,
+          });
+
+          toast.success('🎉 Deposit paid successfully! You can now rent bikes.');
+          fetchDepositData();
+        } catch (err) {
+          toast.error(err.response?.data?.error || 'Deposit verification/recording failed');
+        }
       });
-      rzp.open();
     } catch (err) {
       toast.error(err.response?.data?.error || 'Failed to initiate payment');
     } finally {

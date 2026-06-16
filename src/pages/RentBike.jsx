@@ -111,53 +111,46 @@ export default function RentBike() {
         payment_type: 'rental'
       });
 
-      const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-        amount: initRes.data.amount,
-        currency: initRes.data.currency,
-        name: "EV Bike Rental",
-        description: `Rent ${selectedBike.bike_model} (${planLabels[selectedPlan]})`,
-        order_id: initRes.data.order_id,
-        handler: async function (response) {
-            try {
-                // Verify payment
-                await api.post('/payments/verify-payment', {
-                  razorpay_payment_id: response.razorpay_payment_id,
-                  razorpay_order_id: response.razorpay_order_id,
-                  razorpay_signature: response.razorpay_signature,
-                });
+      if (!window.Cashfree) {
+        toast.error('Payment gateway SDK not loaded');
+        setPaying(false);
+        return;
+      }
 
-                // Create rental
-                await api.post('/rentals', {
-                  bike_id: selectedBike.id,
-                  store_id: selectedStore.store_id,
-                  rental_plan: selectedPlan,
-                  payment_method: 'online',
-                  transaction_id: response.razorpay_payment_id,
-                });
+      const cashfree = window.Cashfree({
+        mode: import.meta.env.VITE_CASHFREE_ENV || 'sandbox'
+      });
 
-                toast.success('🎉 Bike rented successfully!');
-                navigate('/dashboard');
-            } catch (err) {
-                toast.error(err.response?.data?.error || 'Payment verification failed');
-            }
-        },
-        theme: {
-            color: "#6366f1"
+      cashfree.checkout({
+        paymentSessionId: initRes.data.payment_session_id,
+        redirectTarget: '_modal'
+      }).then(async (result) => {
+        if (result.error) {
+          toast.error(result.error.message || 'Payment failed or cancelled');
+          return;
         }
-      };
 
-      const rzp = new window.Razorpay(options);
-      rzp.on('payment.failed', function (response) {
-          toast.error(response.error.description || 'Payment failed');
-      });
-      
-      // Handle modal close
-      rzp.on('payment.modal.closed', function() {
-          toast.error('Payment cancelled');
-      });
+        try {
+          // Verify payment
+          const verifyRes = await api.post('/payments/verify-payment', {
+            order_id: initRes.data.order_id
+          });
 
-      rzp.open();
+          // Create rental
+          await api.post('/rentals', {
+            bike_id: selectedBike.id,
+            store_id: selectedStore.store_id,
+            rental_plan: selectedPlan,
+            payment_method: 'online',
+            transaction_id: verifyRes.data.transaction_id,
+          });
+
+          toast.success('🎉 Bike rented successfully!');
+          navigate('/dashboard');
+        } catch (err) {
+          toast.error(err.response?.data?.error || 'Payment verification failed');
+        }
+      });
     } catch (err) {
       const errorData = err.response?.data;
       if (errorData?.has_active_rental) {

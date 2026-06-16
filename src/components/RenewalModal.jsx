@@ -53,7 +53,7 @@ export default function RenewalModal({ rental, onClose, onSuccess }) {
     try {
       const amount = totalAmount;
 
-      // Create Razorpay order
+      // Create Cashfree order
       const initRes = await api.post('/payments/create-order', {
         amount: amount,
         currency: 'INR',
@@ -61,49 +61,45 @@ export default function RenewalModal({ rental, onClose, onSuccess }) {
         payment_type: 'renewal'
       });
 
-      const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-        amount: initRes.data.amount,
-        currency: initRes.data.currency,
-        name: "EV Bike Rental",
-        description: `Renew ${bike.bike_model} (${planLabels[selectedPlan]})${fineAmount > 0 ? ' + Fine' : ''}`,
-        order_id: initRes.data.order_id,
-        handler: async function (response) {
-          try {
-            // Verify payment
-            await api.post('/payments/verify-payment', {
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_signature: response.razorpay_signature,
-            });
+      if (!window.Cashfree) {
+        toast.error('Payment gateway SDK not loaded');
+        setPaying(false);
+        return;
+      }
 
-            // Call renew endpoint
-            await api.post(`/rentals/${rental.id}/renew`, {
-              rental_plan: selectedPlan,
-              payment_method: 'online',
-              transaction_id: response.razorpay_payment_id,
-              start_date: new Date().toISOString(),
-            });
+      const cashfree = window.Cashfree({
+        mode: import.meta.env.VITE_CASHFREE_ENV || 'sandbox'
+      });
 
-            toast.success('🎉 Rental renewed successfully!');
-            onSuccess();
-          } catch (err) {
-            toast.error(err.response?.data?.error || 'Renewal failed');
-          }
-        },
-        theme: {
-          color: "#388E3C"
+      cashfree.checkout({
+        paymentSessionId: initRes.data.payment_session_id,
+        redirectTarget: '_modal'
+      }).then(async (result) => {
+        if (result.error) {
+          toast.error(result.error.message || 'Payment failed or cancelled');
+          return;
         }
-      };
 
-      const rzp = new window.Razorpay(options);
-      rzp.on('payment.failed', function (response) {
-        toast.error(response.error.description || 'Payment failed');
+        try {
+          // Verify payment
+          const verifyRes = await api.post('/payments/verify-payment', {
+            order_id: initRes.data.order_id
+          });
+
+          // Call renew endpoint
+          await api.post(`/rentals/${rental.id}/renew`, {
+            rental_plan: selectedPlan,
+            payment_method: 'online',
+            transaction_id: verifyRes.data.transaction_id,
+            start_date: new Date().toISOString(),
+          });
+
+          toast.success('🎉 Rental renewed successfully!');
+          onSuccess();
+        } catch (err) {
+          toast.error(err.response?.data?.error || 'Renewal failed');
+        }
       });
-      rzp.on('payment.modal.closed', function () {
-        toast.error('Payment cancelled');
-      });
-      rzp.open();
     } catch (err) {
       toast.error(err.response?.data?.error || 'Failed to initiate payment');
     } finally {
