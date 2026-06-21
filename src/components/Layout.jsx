@@ -140,7 +140,7 @@ export default function Layout() {
                       </div>
                     </a>
                     <a 
-                      href="mailto:startev2026@gmail.com" 
+                      href="mailto:supportstartev@gmail.com" 
                       style={{ 
                         display: 'flex', 
                         alignItems: 'center', 
@@ -158,7 +158,7 @@ export default function Layout() {
                       <HiOutlineMail style={{ color: 'var(--primary)', flexShrink: 0 }} size={18} />
                       <div>
                         <span style={{ fontSize: '10px', display: 'block', color: 'var(--text-muted)' }}>Email Support</span>
-                        <span style={{ fontSize: 'var(--font-size-sm)', fontWeight: 600 }}>startev2026@gmail.com</span>
+                        <span style={{ fontSize: 'var(--font-size-sm)', fontWeight: 600 }}>supportstartev@gmail.com</span>
                       </div>
                     </a>
                   </div>

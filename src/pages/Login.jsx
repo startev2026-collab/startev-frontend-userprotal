@@ -261,6 +261,274 @@ export default function Login() {
                   A refundable security deposit of ₹2,000 is required for every vehicle rental booking.
                 </p>
               </div>
+
+              {/* Privacy Policy */}
+              <div style={{ marginTop: '2rem' }}>
+                <h3 style={{ color: 'var(--text-primary)', marginBottom: '0.5rem', fontSize: '1.05rem', borderBottom: '2px solid var(--primary-glow)', paddingBottom: '4px' }}>
+                  Privacy Policy for START EV
+                </h3>
+                <p style={{ marginBottom: '0.5rem', lineHeight: '1.5', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                  Last Updated: June 19, 2026
+                </p>
+                <p style={{ marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  Welcome to START EV. We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how START EV collects, uses, stores, and protects your information when you use our website, mobile application, and EV rental services.
+                </p>
+                
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>1. About START EV</h4>
+                <p style={{ marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  START EV provides electric two-wheeler rental services to customers. By using our services, you agree to the practices described in this Privacy Policy.
+                </p>
+                
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>2. Information We Collect</h4>
+                <p style={{ marginBottom: '0.5rem', lineHeight: '1.5', fontWeight: 'bold' }}>Personal Information</p>
+                <ul style={{ paddingLeft: '20px', marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  <li>Full name</li>
+                  <li>Mobile number</li>
+                  <li>Email address</li>
+                  <li>Residential address</li>
+                  <li>Date of birth</li>
+                  <li>Driving License details</li>
+                  <li>Government-issued identification documents (when required)</li>
+                  <li>Profile photographs (if required for verification)</li>
+                </ul>
+                
+                <p style={{ marginBottom: '0.5rem', lineHeight: '1.5', fontWeight: 'bold' }}>Payment Information</p>
+                <ul style={{ paddingLeft: '20px', marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  <li>Transaction details</li>
+                  <li>Payment status</li>
+                  <li>Security deposit information</li>
+                </ul>
+                <p style={{ marginBottom: '0.75rem', lineHeight: '1.5', fontStyle: 'italic' }}>
+                  Note: START EV does not store complete card or banking details. Payments are processed through authorized payment service providers.
+                </p>
+
+                <p style={{ marginBottom: '0.5rem', lineHeight: '1.5', fontWeight: 'bold' }}>Vehicle and Usage Information</p>
+                <ul style={{ paddingLeft: '20px', marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  <li>Booking history</li>
+                  <li>Rental duration</li>
+                  <li>Vehicle usage information</li>
+                  <li>Pickup and drop-off details</li>
+                </ul>
+
+                <p style={{ marginBottom: '0.5rem', lineHeight: '1.5', fontWeight: 'bold' }}>Location Information</p>
+                <ul style={{ paddingLeft: '20px', marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  <li>Real-time location data during rental periods</li>
+                  <li>GPS information from rented vehicles for safety, theft prevention, and fleet management</li>
+                </ul>
+
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>3. How We Use Your Information</h4>
+                <p style={{ marginBottom: '0.5rem', lineHeight: '1.5' }}>We use your information to:</p>
+                <ul style={{ paddingLeft: '20px', marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  <li>Create and manage your account</li>
+                  <li>Verify your identity and driving eligibility</li>
+                  <li>Process bookings and payments</li>
+                  <li>Manage security deposits</li>
+                  <li>Provide customer support</li>
+                  <li>Prevent fraud and misuse</li>
+                  <li>Track and recover vehicles when necessary</li>
+                  <li>Improve our services and customer experience</li>
+                  <li>Comply with legal and regulatory requirements</li>
+                </ul>
+
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>4. Information Sharing</h4>
+                <p style={{ marginBottom: '0.5rem', lineHeight: '1.5' }}>START EV does not sell your personal information. We may share information with:</p>
+                <ul style={{ paddingLeft: '20px', marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  <li>Payment gateway providers</li>
+                  <li>Verification service providers</li>
+                  <li>Government authorities when legally required</li>
+                  <li>Law enforcement agencies when necessary</li>
+                  <li>Business partners assisting in service delivery</li>
+                </ul>
+
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>5. Data Security</h4>
+                <p style={{ marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  We implement reasonable technical and organizational security measures to protect your information from unauthorized access, misuse, alteration, or disclosure. However, no method of internet transmission or electronic storage is completely secure, and we cannot guarantee absolute security.
+                </p>
+
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>6. Vehicle GPS Tracking</h4>
+                <p style={{ marginBottom: '0.5rem', lineHeight: '1.5' }}>All START EV vehicles may contain GPS tracking systems. By renting a vehicle, you consent to location tracking for:</p>
+                <ul style={{ paddingLeft: '20px', marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  <li>Vehicle security</li>
+                  <li>Theft prevention</li>
+                  <li>Fleet management</li>
+                  <li>Emergency assistance</li>
+                  <li>Compliance with rental terms</li>
+                </ul>
+
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>7. Data Retention</h4>
+                <p style={{ marginBottom: '0.5rem', lineHeight: '1.5' }}>We retain your information for as long as necessary to:</p>
+                <ul style={{ paddingLeft: '20px', marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  <li>Provide our services</li>
+                  <li>Meet legal obligations</li>
+                  <li>Resolve disputes</li>
+                  <li>Enforce agreements</li>
+                </ul>
+
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>8. Your Rights</h4>
+                <p style={{ marginBottom: '0.5rem', lineHeight: '1.5' }}>You may:</p>
+                <ul style={{ paddingLeft: '20px', marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  <li>Access your personal information</li>
+                  <li>Request correction of inaccurate information</li>
+                  <li>Request account deletion</li>
+                  <li>Withdraw certain permissions where legally permitted</li>
+                </ul>
+                <p style={{ marginBottom: '0.75rem', lineHeight: '1.5' }}>Requests can be submitted through our contact details below.</p>
+
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>9. Cookies and Analytics</h4>
+                <p style={{ marginBottom: '0.5rem', lineHeight: '1.5' }}>Our website and application may use cookies and analytics tools to:</p>
+                <ul style={{ paddingLeft: '20px', marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  <li>Improve website performance</li>
+                  <li>Remember user preferences</li>
+                  <li>Analyze service usage</li>
+                  <li>Enhance customer experience</li>
+                </ul>
+
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>10. Children's Privacy</h4>
+                <p style={{ marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  START EV services are intended only for individuals who are legally eligible to operate a motor vehicle. We do not knowingly collect information from minors.
+                </p>
+
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>11. Changes to This Privacy Policy</h4>
+                <p style={{ marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  START EV may update this Privacy Policy from time to time. Updated versions will be posted on our website and application.
+                </p>
+
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>12. Contact Information</h4>
+                <p style={{ marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  <strong>START EV</strong><br />
+                  Electric Two-Wheeler Rental Services<br />
+                  Email: supportstartev@gmail.com<br />
+                  Phone: +91 7671861942<br />
+                  For privacy-related concerns, contact us at supportstartev@gmail.com
+                </p>
+              </div>
+
+              {/* Refund & Cancellation Policy */}
+              <div style={{ marginTop: '2rem' }}>
+                <h3 style={{ color: 'var(--text-primary)', marginBottom: '0.5rem', fontSize: '1.05rem', borderBottom: '2px solid var(--primary-glow)', paddingBottom: '4px' }}>
+                  Refund & Cancellation Policy – START EV
+                </h3>
+                <p style={{ marginBottom: '0.5rem', lineHeight: '1.5', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                  Last Updated: June 19, 2026
+                </p>
+                <p style={{ marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  This Refund and Cancellation Policy applies to all bookings made through START EV's website, mobile application, or customer support channels.
+                </p>
+
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>1. Booking Cancellation by Customer</h4>
+                <p style={{ marginBottom: '0.5rem', lineHeight: '1.5', fontWeight: 'bold' }}>More than 24 Hours Before Pickup</p>
+                <ul style={{ paddingLeft: '20px', marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  <li>Customers may cancel the booking free of charge.</li>
+                  <li>Any advance rental amount paid will be refunded.</li>
+                </ul>
+                <p style={{ marginBottom: '0.5rem', lineHeight: '1.5', fontWeight: 'bold' }}>Less than 24 Hours Before Pickup</p>
+                <ul style={{ paddingLeft: '20px', marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  <li>A cancellation fee of up to 20% of the booking amount may be deducted.</li>
+                  <li>The remaining amount will be refunded.</li>
+                </ul>
+                <p style={{ marginBottom: '0.5rem', lineHeight: '1.5', fontWeight: 'bold' }}>After Rental Start Time</p>
+                <ul style={{ paddingLeft: '20px', marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  <li>No refund will be provided if the customer fails to collect the vehicle or cancels after the rental period has started.</li>
+                </ul>
+
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>2. Security Deposit Refund</h4>
+                <p style={{ marginBottom: '0.5rem', lineHeight: '1.5' }}>Security deposits are refundable subject to vehicle inspection. Refunds will be processed after confirming:</p>
+                <ul style={{ paddingLeft: '20px', marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  <li>No vehicle damage</li>
+                  <li>No traffic violations</li>
+                  <li>No unpaid rental charges</li>
+                  <li>No missing accessories</li>
+                </ul>
+                <p style={{ marginBottom: '0.5rem', lineHeight: '1.5', fontWeight: 'bold' }}>Refund Timeline</p>
+                <p style={{ marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  Security deposit refunds will normally be processed within 3–7 business days after vehicle return.
+                </p>
+
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>3. Early Return of Vehicle</h4>
+                <p style={{ marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  If a customer returns the vehicle before the booking end time, no refund for unused rental hours or days will be provided unless approved by START EV.
+                </p>
+
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>4. Cancellation by START EV</h4>
+                <p style={{ marginBottom: '0.5rem', lineHeight: '1.5' }}>START EV reserves the right to cancel a booking due to:</p>
+                <ul style={{ paddingLeft: '20px', marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  <li>Vehicle unavailability</li>
+                  <li>Maintenance issues</li>
+                  <li>Incorrect customer information</li>
+                  <li>Suspected fraud</li>
+                  <li>Safety concerns</li>
+                </ul>
+                <p style={{ marginBottom: '0.75rem', lineHeight: '1.5' }}>In such cases, eligible payments made by the customer will be refunded in full.</p>
+
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>5. Non-Refundable Situations</h4>
+                <p style={{ marginBottom: '0.5rem', lineHeight: '1.5' }}>Refunds will not be provided for:</p>
+                <ul style={{ paddingLeft: '20px', marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  <li>No-show bookings</li>
+                  <li>Violation of rental terms</li>
+                  <li>Driving without a valid license</li>
+                  <li>Vehicle misuse</li>
+                  <li>Booking suspension due to customer misconduct</li>
+                </ul>
+
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>6. Refund Processing</h4>
+                <p style={{ marginBottom: '0.5rem', lineHeight: '1.5' }}>Refunds will be credited to the original payment method used for the booking. Actual credit timelines may vary depending on:</p>
+                <ul style={{ paddingLeft: '20px', marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  <li>Bank processing times</li>
+                  <li>Payment gateway policies</li>
+                  <li>UPI or card network processing</li>
+                </ul>
+
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>7. Contact Us</h4>
+                <p style={{ marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  <strong>START EV</strong><br />
+                  Email: supportstartev@gmail.com<br />
+                  Phone: +91 7671861942
+                </p>
+              </div>
+
+              {/* Terms & Conditions summary provided in the prompt */}
+              <div style={{ marginTop: '2rem' }}>
+                <h3 style={{ color: 'var(--text-primary)', marginBottom: '0.5rem', fontSize: '1.05rem', borderBottom: '2px solid var(--primary-glow)', paddingBottom: '4px' }}>
+                  Additional Terms & Conditions – START EV
+                </h3>
+                
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>Eligibility</h4>
+                <ul style={{ paddingLeft: '20px', marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  <li>Rider must be at least 18 years old.</li>
+                  <li>A valid Driving License is mandatory.</li>
+                  <li>Customers must provide accurate information during registration.</li>
+                </ul>
+
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>Vehicle Usage</h4>
+                <ul style={{ paddingLeft: '20px', marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  <li>Vehicles must be used only for lawful purposes.</li>
+                  <li>Sub-renting is strictly prohibited.</li>
+                  <li>Racing, stunts, and illegal activities are prohibited.</li>
+                </ul>
+
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>Customer Responsibility</h4>
+                <p style={{ marginBottom: '0.5rem', lineHeight: '1.5' }}>Customers are responsible for:</p>
+                <ul style={{ paddingLeft: '20px', marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  <li>Vehicle safety during the rental period</li>
+                  <li>Traffic fines and penalties</li>
+                  <li>Damage caused by negligence or misuse</li>
+                </ul>
+
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>GPS Tracking</h4>
+                <p style={{ marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  All START EV vehicles may be GPS-tracked for safety and security purposes.
+                </p>
+
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>Limitation of Liability</h4>
+                <p style={{ marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  START EV shall not be liable for indirect, incidental, or consequential damages arising from the use of rented vehicles.
+                </p>
+
+                <h4 style={{ color: 'var(--text-primary)', marginTop: '1rem', marginBottom: '0.25rem' }}>Policy Updates</h4>
+                <p style={{ marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                  START EV may update these policies at any time. Updated versions will be published on the official website.
+                </p>
+              </div>
             </div>
 
             <div className="modal-footer">
