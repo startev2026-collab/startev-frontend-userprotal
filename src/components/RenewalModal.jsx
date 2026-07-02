@@ -53,7 +53,6 @@ export default function RenewalModal({ rental, onClose, onSuccess }) {
     try {
       const amount = totalAmount;
 
-      // Create Cashfree order
       const initRes = await api.post('/payments/create-order', {
         amount: amount,
         currency: 'INR',
@@ -61,48 +60,33 @@ export default function RenewalModal({ rental, onClose, onSuccess }) {
         payment_type: 'renewal'
       });
 
-      if (!window.Cashfree) {
-        toast.error('Payment gateway SDK not loaded');
-        setPaying(false);
-        return;
-      }
+      const payu = initRes.data;
 
-      const cashfree = window.Cashfree({
-        mode: import.meta.env.VITE_CASHFREE_ENV || 'sandbox'
+      sessionStorage.setItem(`payu_intent_${payu.txnid}`, JSON.stringify({
+        type: 'renewal',
+        rental_id: rental.id,
+        rental_plan: selectedPlan,
+        amount: amount,
+      }));
+
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = payu.action;
+      form.style.display = 'none';
+
+      const fields = { key: payu.key, txnid: payu.txnid, amount: payu.amount, productinfo: payu.productinfo, firstname: payu.firstname, email: payu.email, phone: payu.phone, hash: payu.hash, surl: payu.surl, furl: payu.furl, udf1: payu.udf1 };
+      Object.entries(fields).forEach(([k, v]) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = k;
+        input.value = v;
+        form.appendChild(input);
       });
 
-      cashfree.checkout({
-        paymentSessionId: initRes.data.payment_session_id,
-        redirectTarget: '_modal'
-      }).then(async (result) => {
-        if (result.error) {
-          toast.error(result.error.message || 'Payment failed or cancelled');
-          return;
-        }
-
-        try {
-          // Verify payment
-          const verifyRes = await api.post('/payments/verify-payment', {
-            order_id: initRes.data.order_id
-          });
-
-          // Call renew endpoint
-          await api.post(`/rentals/${rental.id}/renew`, {
-            rental_plan: selectedPlan,
-            payment_method: 'online',
-            transaction_id: verifyRes.data.transaction_id,
-            start_date: new Date().toISOString(),
-          });
-
-          toast.success('🎉 Rental renewed successfully!');
-          onSuccess();
-        } catch (err) {
-          toast.error(err.response?.data?.error || 'Renewal failed');
-        }
-      });
+      document.body.appendChild(form);
+      form.submit();
     } catch (err) {
       toast.error(err.response?.data?.error || 'Failed to initiate payment');
-    } finally {
       setPaying(false);
     }
   };

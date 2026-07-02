@@ -42,7 +42,6 @@ export default function DepositPayment() {
     }
 
     try {
-      // Create Cashfree order
       const initRes = await api.post('/payments/create-order', {
         amount: amountToPay,
         currency: 'INR',
@@ -50,46 +49,31 @@ export default function DepositPayment() {
         payment_type: 'deposit'
       });
 
-      if (!window.Cashfree) {
-        toast.error('Payment gateway SDK not loaded');
-        setPaying(false);
-        return;
-      }
+      const payu = initRes.data;
 
-      const cashfree = window.Cashfree({
-        mode: import.meta.env.VITE_CASHFREE_ENV || 'sandbox'
+      sessionStorage.setItem(`payu_intent_${payu.txnid}`, JSON.stringify({
+        type: 'deposit',
+        amount: amountToPay,
+      }));
+
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = payu.action;
+      form.style.display = 'none';
+
+      const fields = { key: payu.key, txnid: payu.txnid, amount: payu.amount, productinfo: payu.productinfo, firstname: payu.firstname, email: payu.email, phone: payu.phone, hash: payu.hash, surl: payu.surl, furl: payu.furl, udf1: payu.udf1 };
+      Object.entries(fields).forEach(([k, v]) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = k;
+        input.value = v;
+        form.appendChild(input);
       });
 
-      cashfree.checkout({
-        paymentSessionId: initRes.data.payment_session_id,
-        redirectTarget: '_modal'
-      }).then(async (result) => {
-        if (result.error) {
-          toast.error(result.error.message || 'Payment failed or cancelled');
-          return;
-        }
-
-        try {
-          // Verify payment
-          const verifyRes = await api.post('/payments/verify-payment', {
-            order_id: initRes.data.order_id
-          });
-
-          // Record deposit
-          await api.post('/deposits/pay', {
-            amount: amountToPay,
-            transaction_id: verifyRes.data.transaction_id,
-          });
-
-          toast.success('🎉 Deposit paid successfully! You can now rent bikes.');
-          fetchDepositData();
-        } catch (err) {
-          toast.error(err.response?.data?.error || 'Deposit verification/recording failed');
-        }
-      });
+      document.body.appendChild(form);
+      form.submit();
     } catch (err) {
       toast.error(err.response?.data?.error || 'Failed to initiate payment');
-    } finally {
       setPaying(false);
     }
   };

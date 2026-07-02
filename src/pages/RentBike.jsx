@@ -103,7 +103,6 @@ export default function RentBike() {
     setPaying(true);
     try {
       const amount = getAmount();
-      // Initiate payment
       const initRes = await api.post('/payments/create-order', {
         amount: amount,
         currency: 'INR',
@@ -111,46 +110,32 @@ export default function RentBike() {
         payment_type: 'rental'
       });
 
-      if (!window.Cashfree) {
-        toast.error('Payment gateway SDK not loaded');
-        setPaying(false);
-        return;
-      }
+      const payu = initRes.data;
 
-      const cashfree = window.Cashfree({
-        mode: import.meta.env.VITE_CASHFREE_ENV || 'sandbox'
+      sessionStorage.setItem(`payu_intent_${payu.txnid}`, JSON.stringify({
+        type: 'rental',
+        bike_id: selectedBike.id,
+        store_id: selectedStore.store_id,
+        rental_plan: selectedPlan,
+        amount: amount,
+      }));
+
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = payu.action;
+      form.style.display = 'none';
+
+      const fields = { key: payu.key, txnid: payu.txnid, amount: payu.amount, productinfo: payu.productinfo, firstname: payu.firstname, email: payu.email, phone: payu.phone, hash: payu.hash, surl: payu.surl, furl: payu.furl, udf1: payu.udf1 };
+      Object.entries(fields).forEach(([k, v]) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = k;
+        input.value = v;
+        form.appendChild(input);
       });
 
-      cashfree.checkout({
-        paymentSessionId: initRes.data.payment_session_id,
-        redirectTarget: '_modal'
-      }).then(async (result) => {
-        if (result.error) {
-          toast.error(result.error.message || 'Payment failed or cancelled');
-          return;
-        }
-
-        try {
-          // Verify payment
-          const verifyRes = await api.post('/payments/verify-payment', {
-            order_id: initRes.data.order_id
-          });
-
-          // Create rental
-          await api.post('/rentals', {
-            bike_id: selectedBike.id,
-            store_id: selectedStore.store_id,
-            rental_plan: selectedPlan,
-            payment_method: 'online',
-            transaction_id: verifyRes.data.transaction_id,
-          });
-
-          toast.success('🎉 Bike rented successfully!');
-          navigate('/dashboard');
-        } catch (err) {
-          toast.error(err.response?.data?.error || 'Payment verification failed');
-        }
-      });
+      document.body.appendChild(form);
+      form.submit();
     } catch (err) {
       const errorData = err.response?.data;
       if (errorData?.has_active_rental) {
@@ -159,7 +144,6 @@ export default function RentBike() {
         return;
       }
       toast.error(errorData?.error || 'Failed to initiate payment');
-    } finally {
       setPaying(false);
     }
   };

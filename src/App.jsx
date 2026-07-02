@@ -9,6 +9,7 @@ import RentalHistory from './pages/RentalHistory';
 import PaymentHistory from './pages/PaymentHistory';
 import Profile from './pages/Profile';
 import DepositPayment from './pages/DepositPayment';
+import PaymentCallback from './pages/PaymentCallback';
 import './index.css';
 
 function ProtectedRoute({ children }) {
@@ -34,6 +35,7 @@ function AppRoutes() {
         <Route path="/payments" element={<PaymentHistory />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/deposit" element={<DepositPayment />} />
+        <Route path="/payment-callback" element={<PaymentCallback />} />
       </Route>
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
     </Routes>
